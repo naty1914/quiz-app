@@ -9,6 +9,16 @@
     </head>
     <body>
         <div class="container">
+            {% if message %}
+            <div class="alert alert-{{ message_class }}">
+              {{ message }}
+            </div>
+          {% endif %}
+          {% if error %}
+      <div class="alert alert-danger">
+        {{ error }}
+      </div>
+    {% endif %}
             <h2> Register</h2>
             <form action="/register" method="POST">
                 <div class="mb-3">
