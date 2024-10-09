@@ -14,3 +14,19 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)    
+    
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(200))
+
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question_text = db.Column(db.String(200), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)   
+ 
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    answer_text = db.Column(db.String(200), nullable=False)
+    is_correct = db.Column(db.Boolean, default=False, nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
