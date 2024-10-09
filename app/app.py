@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
-from app.models import User
+from app.models import Answer, Quiz, User
 
 
 app = Blueprint('app', __name__)
@@ -43,6 +43,7 @@ def login():
       
         if user and user.check_password(password):
             login_user(user)
+            print("login successful")
             return redirect(url_for('app.dashboard'))
         else:
             return render_template('login.html', error='Login failed. Please check your email and password.')
@@ -57,12 +58,26 @@ def dashboard():
 
 @app.route('/logout')
 def logout():
+    print("logging out")
     logout_user()
-    return render_template('index.html', message='Logged out successfully!', message_class='success')
+    return redirect(url_for('app.index'))
+
+
+@app.route('/quiz_categories')
+@login_required
+def quizzes():
+    quizzes = Quiz.query.all()
+    return render_template('quiz_categories.html', quizzes=quizzes)
+
+@app.route('/quiz/<int:quiz_id>')
+@login_required
+def quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    return render_template('quiz.html', quiz=quiz)
 
 
 if __name__ == '__main__':
     from app import create_app
     app_instance = create_app()
     app_instance.run(debug=True)
-    app.config['DEBUG'] = True
+    

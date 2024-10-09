@@ -20,10 +20,15 @@ class Quiz(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(200))
 
+    questions = db.relationship('Question', backref='quiz', lazy=True)
+ 
+
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_text = db.Column(db.String(200), nullable=False)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)   
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False) 
+
+    answers = db.relationship('Answer', backref='question', lazy=True)  
  
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)

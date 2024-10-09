@@ -18,7 +18,8 @@
             <li><strong>Email:</strong> {{ user.email }}</li>
         </ul>
 
-        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Logout</a>
+        <a href="{{ url_for('app.logout') }}" class="btn btn-danger">Logout</a>
+        <a href="{{ url_for('app.quizzes') }}" class="btn btn-danger">Take quiz</a>
     </div>
 </body>
 </html>

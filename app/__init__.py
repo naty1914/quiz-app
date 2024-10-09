@@ -14,6 +14,7 @@ def create_app():
     app.config['SECRET_KEY'] =os.environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['DEBUG'] = True
    
     db.init_app(app)
     login_manager.init_app(app)
