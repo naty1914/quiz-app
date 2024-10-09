@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.models import User
 
+
 app = Blueprint('app', __name__)
 
 @app.route('/')
@@ -57,10 +58,11 @@ def dashboard():
 @app.route('/logout')
 def logout():
     logout_user()
-    return render_template('login.html', message='Logged out successfully!', message_class='success')
+    return render_template('index.html', message='Logged out successfully!', message_class='success')
 
 
 if __name__ == '__main__':
     from app import create_app
     app_instance = create_app()
     app_instance.run(debug=True)
+    app.config['DEBUG'] = True
