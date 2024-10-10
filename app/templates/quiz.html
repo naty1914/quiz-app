@@ -9,7 +9,8 @@
 <body>
     <div class="container">
         <h2 class="my-4">{{ quiz.title }}</h2>
-        <form method="POST" action="{{ url_for('app.submit_quiz', quiz_id=quiz.id) }}">
+        <form   id="quizForm"   action="{{ url_for('app.submit_quiz', quiz_id=quiz.id) }}" method="POST">
+            <p id="timer"> 60 seconds remaining/p>
             {% for question in quiz.questions %}
                 <div class="mb-3">
                     <h5>{{ question.question_text }}</h5>
@@ -25,5 +26,7 @@
             <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
         </form>
     </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
