@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2 class="my-4">{{ quiz.title }}</h2>
-        <form action="" >
+        <form method="POST" action="{{ url_for('app.submit_quiz', quiz_id=quiz.id) }}">
             {% for question in quiz.questions %}
                 <div class="mb-3">
                     <h5>{{ question.question_text }}</h5>
@@ -22,6 +22,7 @@
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-success">Submit Quiz</button>
+            <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
         </form>
     </div>
 </body>
