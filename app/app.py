@@ -109,7 +109,18 @@ def submit_quiz(quiz_id):
     db.session.add(result)
     db.session.commit()
     print(f'You scored {score} out of {total_questions}!')
-    return redirect(url_for('app.dashboard'))
+    return redirect(url_for('app.result', quiz_id=quiz_id))
+
+@app.route('/quiz/<int:quiz_id>/result')
+@login_required
+def result(quiz_id):
+    """It displays the result of a quiz"""
+    result = QuizResult.query.filter_by(user_id=current_user.id, quiz_id=quiz_id).order_by(QuizResult.id.desc()).first()
+    
+    if not result:
+        return redirect(url_for('app.dashboard'))
+    return render_template('result.html', result=result)
+    
 
 if __name__ == '__main__':
     from app import create_app
