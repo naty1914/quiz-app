@@ -33,4 +33,3 @@ def create_app():
 def load_user(user_id):
     """It loads a user from the database."""
     return User.query.get(int(user_id))
-

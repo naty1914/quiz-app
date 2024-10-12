@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
-from app.models import Answer, Quiz, QuizResult, User
+from app.models import  Question, Quiz, QuizResult, User
 
 
 app = Blueprint('app', __name__)
@@ -79,48 +79,62 @@ def quizzes():
 @login_required
 def quiz(quiz_id):
     """It renders the quiz.html template."""
-    quiz = Quiz.query.get_or_404(quiz_id)
-    return render_template('quiz.html', quiz=quiz)
+    quiz = Quiz.query.get(quiz_id) 
+    questions = Question.query.all()
+    questions_data = [
+        {
+            'question_text': question.question_text,
+            'options': question.options,
+            'answer': question.answer
+        }
+        for question in questions
+    ]
+    print(questions_data)
+   
+    return render_template('quiz.html', questions=questions_data, quiz=quiz)
 
 @app.route('/quiz/<int:quiz_id>/submit', methods=['POST'])
 @login_required
 def submit_quiz(quiz_id):
     """It handle user's submission of a quiz."""
-    user = current_user
-    score = 0
-    total_questions = 0
+    """Old submission logic for comparison purposes. May be deleted in future."""
+    # user = current_user
+    # score = 0
+    # total_questions = 0
 
-    quiz = Quiz.query.get_or_404(quiz_id)
-    for question in quiz.questions:
-        total_questions += 1
-        selected_answer_id = request.form.get(f'question_{question.id}')
+    # quiz = Quiz.query.get_or_404(quiz_id)
+    # for question in quiz.questions:
+    #     total_questions += 1
+    #     selected_answer_id = request.form.get(f'question_{question.id}')
 
-        if selected_answer_id:
-            selected_answer = Answer.query.get(selected_answer_id)
-            if selected_answer and selected_answer.is_correct:
-                score += 1 
+    #     if selected_answer_id:
+    #         selected_answer = Answer.query.get(selected_answer_id)
+    #         if selected_answer and selected_answer.is_correct:
+    #             score += 1 
 
-    result = QuizResult(
-        user_id=user.id,
-        quiz_id=quiz_id,
-        score=score,
-        total_questions=total_questions,
-    )
-    db.session.add(result)
-    db.session.commit()
-    print(f'You scored {score} out of {total_questions}!')
-    return redirect(url_for('app.result', quiz_id=quiz_id))
+    # result = QuizResult(
+    #     user_id=user.id,
+    #     quiz_id=quiz_id,
+    #     score=score,
+    #     total_questions=total_questions,
+    # )
+    # db.session.add(result)
+    # db.session.commit()
+    # print(f'You scored {score} out of {total_questions}!')
+    # return redirect(url_for('app.result', quiz_id=quiz_id))
 
 @app.route('/quiz/<int:quiz_id>/result')
 @login_required
 def result(quiz_id):
     """It displays the result of a quiz"""
-    result = QuizResult.query.filter_by(user_id=current_user.id, quiz_id=quiz_id).order_by(QuizResult.id.desc()).first()
+    score = request.args.get('score', type=int)
+    total = request.args.get('total', type=int)
+    if current_user.is_authenticated:
+        quiz_result = QuizResult(user_id=current_user.id, quiz_id=quiz_id, score=score, total_questions=total)
+        db.session.add(quiz_result)
+        db.session.commit()
     
-    if not result:
-        return redirect(url_for('app.dashboard'))
-    return render_template('result.html', result=result)
-    
+    return render_template('result.html', score=score, total=total)
 
 if __name__ == '__main__':
     from app import create_app
