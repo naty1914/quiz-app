@@ -9,7 +9,7 @@ from app.models import Question, Quiz
 app = create_app()
 with app.app_context():
     db.create_all()
-    quiz_title = 'General Knowledge Quiz'
+    quiz_title = 'Tech related Quiz'
     existing_quiz = Quiz.query.filter_by(title=quiz_title).first()
     
     if existing_quiz is None:
@@ -35,7 +35,19 @@ with app.app_context():
             'question_text': 'What is the main programming language used to develop Android apps?', 
             'options': 'Java,Python,C++,C#', 
             'answer': 'Java'
+        },
+
+        {
+            'question_text': 'Which version control system is widely used in software development?', 
+            'options': 'Git, SVN, Mercurial, Subversion', 
+            'answer': 'Git'
+        },
+        {
+            'question_text': 'What does HTTP stand for?', 
+            'options': 'HyperText Transfer Protocol,HyperText Markup Language,HyperText Markup Language,HyperText Markup Language', 
+            'answer': 'HyperText Transfer Protocol'
         }
+        
     ]
     for question_data in new_questions:
         existing_question = Question.query.filter_by(question_text=question_data['question_text']).first()
