@@ -101,3 +101,40 @@ margin-bottom: 10px;
 .result .button:hover {
     background-color: #22b65f;
 }
+
+
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #3498db; /* Circle background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.time {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(113, 46, 46);
+    z-index: 1; /* Ensure the number is above the background */
+    position: absolute;
+}
+
+.circle::before {
+    content: '';
+    
+    border-radius: 50%;
+    background-color: rgb(20, 6, 6);
+    z-index: 0;
+    position: absolute;
+}

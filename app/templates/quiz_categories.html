@@ -11,7 +11,6 @@
 <body>
     <div class="container">
         <h2 class="my-4">Available Quizzes</h2>
-        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
         <ul class="list-group">
             {% for quiz in quizzes %}
             <li class="list-group-item">
@@ -20,6 +19,8 @@
             </li>
             {% endfor %}
         </ul>
+        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
+        <a href="{{ url_for('app.dashboard') }}" class="btn btn-danger">Dashboard</a>
     </div>
     
 </body>

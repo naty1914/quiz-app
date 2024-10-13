@@ -9,18 +9,37 @@
 </head>
 <body>
     <div class="container">
-        <h2>Welcome to Your Dashboard, {{ user.username }}!</h2>
+        <h1>Welcome, {{ user.username }}!</h1>
         <p>Your email: {{ user.email }}</p>
 
-        <h3>Your Profile Information</h3>
-        <ul>
-            <li><strong>Username:</strong> {{ user.username }}</li>
-            <li><strong>Email:</strong> {{ user.email }}</li>
-        </ul>
+        <h2> Your Latest Quiz Results</h2>
+       
+        {% if message %}
+         <p> {{ message}}</p>
+         {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th> Quiz Title</th>
+                        <th> Score  </th>
+                        <th>  Total Questions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in quiz_results %}
+                    <tr>
+                        <td> {{result.quiz.title }}</td>
+                        <td> {{ result.score }}</td>
+                        <td> {{ result.total_questions}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
 
         <a href="{{ url_for('app.logout') }}" class="btn btn-danger">Logout</a>
         <a href="{{ url_for('app.quizzes') }}" class="btn btn-danger">Take quiz</a>
-        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
+        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>  
     </div>
 </body>
 </html>

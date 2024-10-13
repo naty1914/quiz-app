@@ -1,4 +1,4 @@
-let timeLeft = 30;
+let timeLeft = 10;
 let time_id;
 let currentQuestion = 0;
 let score = 0;

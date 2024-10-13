@@ -58,7 +58,12 @@ def login():
 @login_required 
 def dashboard():
     """It renders the dashboard.html template."""
-    return render_template('dashboard.html', user=current_user)
+    user = current_user
+    quiz_results = QuizResult.query.filter_by(user_id=user.id).order_by(QuizResult.id.desc()).limit(5).all()
+    if not quiz_results:
+        message = "No score yet,take a quiz!"
+        return render_template('dashboard.html', user=user, message=message)
+    return render_template('dashboard.html', user=user, quiz_results=quiz_results)
 
 @app.route('/logout')
 def logout():
@@ -97,31 +102,28 @@ def quiz(quiz_id):
 @login_required
 def submit_quiz(quiz_id):
     """It handle user's submission of a quiz."""
-    """Old submission logic for comparison purposes. May be deleted in future."""
-    # user = current_user
-    # score = 0
-    # total_questions = 0
+    user = current_user
+    score = 0
+    total_questions = 0
 
-    # quiz = Quiz.query.get_or_404(quiz_id)
-    # for question in quiz.questions:
-    #     total_questions += 1
-    #     selected_answer_id = request.form.get(f'question_{question.id}')
+    quiz = Quiz.query.get_or_404(quiz_id)
+    for question in quiz.questions:
+        total_questions += 1
+        selected_answer = request.form.get(f'question_{question.id}')
 
-    #     if selected_answer_id:
-    #         selected_answer = Answer.query.get(selected_answer_id)
-    #         if selected_answer and selected_answer.is_correct:
-    #             score += 1 
+        if selected_answer == question.answer:
+            score += 1 
 
-    # result = QuizResult(
-    #     user_id=user.id,
-    #     quiz_id=quiz_id,
-    #     score=score,
-    #     total_questions=total_questions,
-    # )
-    # db.session.add(result)
-    # db.session.commit()
-    # print(f'You scored {score} out of {total_questions}!')
-    # return redirect(url_for('app.result', quiz_id=quiz_id))
+    result = QuizResult(
+        user_id=user.id,
+        quiz_id=quiz_id,
+        score=score,
+        total_questions=total_questions,
+    )
+    db.session.add(result)
+    db.session.commit()
+    print(f'You scored {score} out of {total_questions}!')
+    return redirect(url_for('app.result', quiz_id=quiz_id))
 
 @app.route('/quiz/<int:quiz_id>/result')
 @login_required
