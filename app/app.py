@@ -138,6 +138,37 @@ def result(quiz_id):
     
     return render_template('result.html', score=score, total=total)
 
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_question():
+    """It adds a question to the database."""
+    if request.method == 'POST':
+        question_text = request.form['question_text']
+        options = request.form['options']
+        answer = request.form['answer']
+        quiz_id = request.form['quiz_id']
+
+        existing_question = Question.query.filter_by(
+            question_text=question_text, quiz_id=quiz_id
+        ).first()
+        if existing_question:
+            print('Question already exists!', 'warning')
+            return redirect(url_for('app.add_question'))
+
+        new_question = Question(
+            question_text=question_text,
+            options=options,
+            answer=answer,
+            quiz_id=quiz_id
+        )
+        db.session.add(new_question)
+        db.session.commit()
+
+        print('Question added successfully!', 'success')
+        return redirect(url_for('app.quizzes'))
+    quizzes = Quiz.query.all()
+    return render_template('add_question.html', quizzes=quizzes)
+
 if __name__ == '__main__':
     from app import create_app
     app_instance = create_app()
