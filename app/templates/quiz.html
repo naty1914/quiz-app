@@ -11,9 +11,11 @@
     <div class="container">
         <h1>Quiz App</h1>
         <p id="timer"> 30 seconds remaining</p>
+        <div id="questionCount" class="question-count"></div>
         <div id="quiz"></div>
         <div id="result" class="result"></div>
         <button id="submit" class="button">Submit</button>
+        <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a> 
       </div>
       <script>
         <!--
@@ -21,9 +23,11 @@
         quizData.forEach(question => {
           question.quiz_id = {{ quiz.id }};
       });
+      if (!quizData || quizData.length === 0) {
+            document.getElementById('quiz').innerHTML = '<p>No questions available</p>';
+        }
         -->
       </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
