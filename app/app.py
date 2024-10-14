@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, json, render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.models import  Question, Quiz, QuizResult, User
@@ -131,13 +131,27 @@ def result(quiz_id):
     """It displays the result of a quiz"""
     score = request.args.get('score', type=int)
     total = request.args.get('total', type=int)
-    if current_user.is_authenticated:
-        quiz_result = QuizResult(user_id=current_user.id, quiz_id=quiz_id, score=score, total_questions=total)
-        db.session.add(quiz_result)
-        db.session.commit()
-    
-    return render_template('result.html', score=score, total=total)
+    user_answers = request.args.get('userAnswers', type=str)
+    user_answers_list = json.loads(user_answers) if user_answers else []
+    questions = Question.query.filter_by(quiz_id=quiz_id).all()
+    quiz_questions = []
 
+    for question in questions:
+        quiz_questions.append({
+            'question_text': question.question_text,
+            'options': question.options.split(','),
+            'correct_answer': question.answer,
+        })
+
+    structured_answers = [
+        {
+            'question': quiz_questions[i]['question_text'],
+            'user_answer': user_answers_list[i]['answer'],
+            'correct_answer': quiz_questions[i]['correct_answer'],
+            'options': quiz_questions[i]['options']
+        } for i in range(len(user_answers_list))
+    ]
+    return render_template('result.html', score=score, total=total, user_answers=structured_answers)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_question():

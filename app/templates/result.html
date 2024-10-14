@@ -10,6 +10,28 @@
   <div class="container result">
     <h1>Your Quiz Result</h1>
     <p>Your score: {{ score }} out of {{ total }}</p>
+    
+    <h2>Your Answers: </h2>
+    <ul>
+      {% for item in user_answers %}
+      <li>
+        <strong>Question:</strong> {{ item.question }}<br><br>
+        {% for choice in item.options %}
+          <div>
+            {% if choice == item.user_answer %}
+              <span class="{{ 'correct' if choice == item.correct_answer else 'incorrect' }}">
+                {{ choice }}
+              </span>
+            {% else %}
+              {{ choice }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </li>
+      {% endfor %}
+    </ul>
+   
+
     <a href="{{ url_for('app.quizzes') }}" class="button">Back to Quiz Categories</a>
     <a href="{{ url_for('app.dashboard') }}" class="btn btn-danger">Dashboard</a>
     <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
