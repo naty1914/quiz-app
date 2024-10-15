@@ -6,7 +6,7 @@ body {
     font-family :'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
     margin-top: 50px;
-    background-color: #acb1b3;
+  background-color: #156478;
     display: flex;
     justify-content: center;
 }
@@ -16,10 +16,27 @@ body {
     padding: 20px;
     margin-top: 80px;
     /* background-color: #156478; */
+    background-color: #acb1b3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
 }
-
+.con {
+    width: 550px;
+    height: 400px;
+    padding: 20px;
+    margin-top: 80px;
+    /* background-color: #156478; */
+    background-color: #acb1b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+.question-form {
+    width: 500px;
+   
+}
+.options-form {
+    width: 500px;
+}
 h1 {
     text-align: center;
     margin-bottom: 20px;

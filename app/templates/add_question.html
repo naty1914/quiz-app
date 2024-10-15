@@ -11,11 +11,11 @@
   <div class="con">
     <h1>Add a Question</h1>
     <form action="{{ url_for('app.add_question') }}" method="POST">
-        <label for="question_text">Question Text:</label>
-        <input type="text" id="question_text" name="question_text" required>
+        <label  for="question_text">Question Text:</label>
+        <input class="question-form" type="text" id="question_text" name="question_text" required>
         <label for="options">Options (comma-separated):</label>
 
-        <input type="text" id="options" name="options" required>
+        <input class="options-form" type="text" id="options" name="options" required>
         <label for="answer">Correct Answer:</label>
         <input type="text" id="answer" name="answer" required>
         <label for="quiz_id">Quiz:</label>

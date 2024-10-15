@@ -151,6 +151,11 @@ def result(quiz_id):
             'options': quiz_questions[i]['options']
         } for i in range(len(user_answers_list))
     ]
+    
+    if current_user.is_authenticated:
+        quiz_result = QuizResult(user_id=current_user.id, quiz_id=quiz_id, score=score, total_questions=total)
+        db.session.add(quiz_result)
+        db.session.commit()
     return render_template('result.html', score=score, total=total, user_answers=structured_answers)
 
 @app.route('/add', methods=['GET', 'POST'])
