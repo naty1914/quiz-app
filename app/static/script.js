@@ -59,6 +59,7 @@ function checkAnswer() {
 }
 
 function redirectToResult() {
+
    for (let j = currentQuestion; j < quizData.length; j++) {
      userAnswers.push({
        question: quizData[j].question_text,
@@ -89,3 +90,17 @@ countdown();
 
 document.getElementById('submit').addEventListener('click', checkAnswer);
 displayQuestion();
+
+
+function  toggleAnswers() {
+  const answersDiv = document.getElementById('answers');
+  const toggleButton = document.getElementById('toggleAnswersBtn');
+
+  if (answersDiv.style.display === "none") {
+    answersDiv.style.display = "block";
+    toggleButton.textContent = "Hide Answers";
+  } else {
+    answersDiv.style.display = "none";
+    toggleButton.textContent = "Show Answers";
+  }
+}

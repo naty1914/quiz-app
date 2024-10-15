@@ -10,8 +10,11 @@
   <div class="container result">
     <h1>Your Quiz Result</h1>
     <p>Your score: {{ score }} out of {{ total }}</p>
-    
-    <h2>Your Answers: </h2>
+
+    <button id="toggleAnswersBtn" onclick="toggleAnswers()">Show Answers</button>
+
+    <div id="answers" style="display: none;">
+    <h2>Your Answers:</h2>
     <ul>
       {% for item in user_answers %}
       <li>
@@ -34,10 +37,11 @@
       {% endfor %}
     </ul>
    
-
+  </div>
     <a href="{{ url_for('app.quizzes') }}" class="button">Back to Quiz Categories</a>
     <a href="{{ url_for('app.dashboard') }}" class="btn btn-danger">Dashboard</a>
     <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
   </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
