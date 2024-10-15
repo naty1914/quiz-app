@@ -27,6 +27,9 @@
             {% endif %}
           </div>
         {% endfor %}
+        {% if item.user_answer is none %}
+        <span class="unanswered">Unanswered</span>
+      {% endif %}
       </li>
       {% endfor %}
     </ul>

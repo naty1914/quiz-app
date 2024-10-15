@@ -40,6 +40,10 @@ h1 {
     font-weight: bold;
 }
 
+.unanswered {
+    color: yellow;
+    font-weight: bold;
+}
 .home a {
     margin: 10px;
 }

@@ -59,6 +59,12 @@ function checkAnswer() {
 }
 
 function redirectToResult() {
+   for (let j = currentQuestion; j < quizData.length; j++) {
+     userAnswers.push({
+       question: quizData[j].question_text,
+       answer: null
+     });
+   }
     const total = quizData.length;
     const quizId = quizData[0].quiz_id;
     const queryParams = new URLSearchParams({ score, total, userAnswers: JSON.stringify(userAnswers) }); 
