@@ -203,14 +203,14 @@ def add_question():
 
 
 
-@app.route('/quizzes', methods=['Get'])
+@app.route('/quizzes', methods=['Get'], strict_slashes=False)
 def get_quizzes():
     """It returns all quizzes in JSON format."""
     quizzes = Quiz.query.all()
     return jsonify([{'id': quiz.id, 'title': quiz.title} for quiz in quizzes])
 
 
-@app.route('/quizzes/<int:quiz_id>/questions', methods=['GET'])
+@app.route('/quizzes/<int:quiz_id>/questions', methods=['GET'], strict_slashes=False)
 def get_quiz(quiz_id):
     """It returns the questions of a quiz in JSON format."""
     quiz = Quiz.query.get(quiz_id)
@@ -232,7 +232,7 @@ def get_quiz(quiz_id):
     return Response(json.dumps(quiz_data, sort_keys=False, indent=4, separators=(',', ': ')), mimetype='application/json')
     
 
-@app.route('/questions', methods=['POST'])
+@app.route('/questions', methods=['POST'], strict_slashes=False)
 def create_question():
     """It creates a new question in the database."""
     data = request.get_json()
@@ -249,30 +249,45 @@ def create_question():
     
 
 
-@app.route('/questions/<int:question_id>', methods=['PUT'])
-def update_question(question_id):
-    """It updates a question in the database using the question_id."""
-    question = Question.query.get(question_id)
-    if not question:
-        abort(404)
-    data = request.get_json()
-    print(data)
-    question.question_text = data['question_text']
-    question.options = ','.join(data['options'])
-    question.answer = data['answer']
-    db.session.commit()
-    return jsonify({'message': 'Question updated successfully!'})
 
-
-@app.route('/questions/<int:question_id>', methods=['DELETE'])
-def delete_question(question_id):
-    """It deletes a question from the database using the question_id."""
-    q = Question.query.get(question_id)
+@app.route('/quizzes/<int:quiz_id>/questions/<int:question_id>', methods=['PUT'], strict_slashes=False)
+def update_question(quiz_id, question_id):
+    """It updates a question in the database using the quiz_id and question_id."""
+    quiz = Quiz.query.get(quiz_id)
+    if not quiz:
+        return jsonify({'error': 'Quiz not found'}), 404
+    
+    q = Question.query.filter_by(id=question_id, quiz_id=quiz_id).first()
     if not q:
-        abort(404)
+        return jsonify({'error': 'Question not found for the specified quiz'}), 404
+    
+    data = request.get_json()
+    if 'question_text' in data:
+        q.question_text = data['question_text']
+    if 'options' in data:
+        q.options = ','.join(data['options'])
+    if 'answer' in data:
+        q.answer = data['answer']
+    
+    db.session.commit()
+    return jsonify({'message': f'Question in {quiz.title} updated successfully!'})
+
+
+@app.route('/quizzes/<int:quiz_id>/questions/<int:question_id>', methods=['DELETE'], strict_slashes=False)
+def delete_question(quiz_id, question_id):
+    """It deletes a question from the database using the question_id."""
+    quiz = Quiz.query.get(quiz_id)
+    if not quiz:
+        return jsonify({'error': 'Quiz not found'}), 404
+
+    q = Question.query.filter_by(id=question_id, quiz_id=quiz_id).first()
+    if not q:
+        return jsonify({'error': 'Question not found for the specified quiz'}), 404
+
     db.session.delete(q)
     db.session.commit()
-    return jsonify({'message': 'Question deleted successfully!'})
+    return jsonify({'message': f'Question in {quiz.title} deleted successfully!'})
+
 
 if __name__ == '__main__':
     from app import create_app
