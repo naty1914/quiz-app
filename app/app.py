@@ -55,14 +55,18 @@ def login():
 
 
 @app.route('/dashboard')
-@login_required 
+@login_required
 def dashboard():
     """It renders the dashboard.html template."""
     user = current_user
-    quiz_results = QuizResult.query.filter_by(user_id=user.id).order_by(QuizResult.id.desc()).limit(5).all()
+    quiz_results = QuizResult.query.join(Quiz).filter(
+        QuizResult.user_id == user.id,
+        Quiz.id.isnot(None)
+    ).order_by(QuizResult.id.desc()).limit(5).all()
     if not quiz_results:
-        message = "No score yet,take a quiz!"
+        message = "No score yet, take a quiz!"
         return render_template('dashboard.html', user=user, message=message)
+    
     return render_template('dashboard.html', user=user, quiz_results=quiz_results)
 
 @app.route('/logout')
@@ -85,7 +89,7 @@ def quizzes():
 def quiz(quiz_id):
     """It renders the quiz.html template."""
     quiz = Quiz.query.get(quiz_id) 
-    questions = Question.query.all()
+    questions = Question.query.filter_by(quiz_id=quiz_id).all()
     questions_data = [
         {
             'question_text': question.question_text,
@@ -160,33 +164,43 @@ def result(quiz_id):
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_question():
-    """It adds a question to the database."""
+    """It adds a new question to the database using the
+    selected quiz.( Tech or General Knowledge)"""
     if request.method == 'POST':
         question_text = request.form['question_text']
         options = request.form['options']
         answer = request.form['answer']
-        quiz_id = request.form['quiz_id']
-
+        selected_quiz = request.form.get('quiz_title')
+        
+        if selected_quiz == 'tech':
+            quiz_title = 'Tech related Quiz'
+        else:
+            quiz_title = 'General Knowledge'
+        
+        quiz = Quiz.query.filter_by(title=quiz_title).first()
+        if quiz is None:
+            quiz = Quiz(title=quiz_title)
+            db.session.add(quiz)
+            db.session.commit()
+    
         existing_question = Question.query.filter_by(
-            question_text=question_text, quiz_id=quiz_id
+            question_text=question_text, quiz_id=quiz.id
         ).first()
         if existing_question:
             print('Question already exists!', 'warning')
             return redirect(url_for('app.add_question'))
-
         new_question = Question(
             question_text=question_text,
             options=options,
             answer=answer,
-            quiz_id=quiz_id
+            quiz_id=quiz.id
         )
         db.session.add(new_question)
         db.session.commit()
-
-        print('Question added successfully!', 'success')
+        print('Question added successfully to {}!'.format(quiz_title), 'success')
         return redirect(url_for('app.quizzes'))
-    quizzes = Quiz.query.all()
-    return render_template('add_question.html', quizzes=quizzes)
+    return render_template('add_question.html')
+
 
 
 @app.route('/quizzes', methods=['Get'])

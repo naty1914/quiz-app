@@ -11,6 +11,7 @@
 <body>
     <div class="container">
         <h2 class="my-4">Available Quizzes</h2>
+        {% if quizzes %}
         <ul class="list-group">
             {% for quiz in quizzes %}
             <li class="list-group-item">
@@ -19,6 +20,9 @@
             </li>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>No quizzes are available at the moment. Please check back later!</p>
+        {% endif %}
         <a href="{{ url_for('app.index') }}" class="btn btn-danger">Home</a>
         <a href="{{ url_for('app.dashboard') }}" class="btn btn-danger">Dashboard</a>
         <a href="{{ url_for('app.add_question') }}" class="btn btn-danger">Add questions</a>

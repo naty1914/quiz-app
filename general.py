@@ -9,7 +9,7 @@ from app.models import Question, Quiz
 app = create_app()
 with app.app_context():
     db.create_all()
-    quiz_title = 'Tech related Quiz'
+    quiz_title = 'General Knowledge'
     existing_quiz = Quiz.query.filter_by(title=quiz_title).first()
     
     if existing_quiz is None:
@@ -21,30 +21,31 @@ with app.app_context():
         quiz_id = existing_quiz.id
     new_questions = [
         {
-            'question_text': 'What does CPU stand for?', 
-            'options': 'Central Programming Unit,Central Processing Unit,Computer Processing Unit,Control Processing Unit', 
-            'answer': 'Central Processing Unit'
+            'question_text': 'What is the capital of France?', 
+            'options': 'Berlin,Madrid,Paris,Rome', 
+            'answer': 'Paris'
         },
         {
-            'question_text': 'Which company developed the Java programming language?', 
-            'options': 'Sun Microsystems, Google, Microsoft, Oracle Corporation', 
-            'answer': 'Sun Microsystems'
+            'question_text': 'What is the largest planet in our solar system?', 
+            'options': 'Earth,Mars,Jupiter,Saturn', 
+            'answer': 'Jupiter'
         },
-        
-        {
-            'question_text': 'What is the main programming language used to develop Android apps?', 
-            'options': 'Java,Python,C++,C#', 
-            'answer': 'Java'
+        {   'question_text': 'Who wrote "Hamlet"?', 
+            'options': 'Charles Dickens,William Shakespeare,Mark Twain,Jane Austen', 
+            'answer': 'William Shakespeare'
         },
-
         {
-            'question_text': 'Which version control system is widely used in software development?', 
-            'options': 'Git, SVN, Mercurial, Subversion', 
-            'answer': 'Git'
+            'question_text': 'What is the chemical symbol for gold?', 
+            'options': 'Au,Ag,Fe,Hg', 
+            'answer': 'Au'
+        },
+        {
+            'question_text': 'What year did the Titanic sink?', 
+            'options': '1912,1905,1898,1920', 
+            'answer': '1912'
         }
-        
-        
     ]
+
     for question_data in new_questions:
         existing_question = Question.query.filter_by(question_text=question_data['question_text']).first()
         if existing_question is None:

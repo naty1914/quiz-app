@@ -47,5 +47,6 @@ class QuizResult(db.Model):
     quiz_id = db.Column(db.Integer, ForeignKey('quiz.id'), nullable=False)
     score = db.Column(db.Integer, nullable=False)
     total_questions = db.Column(db.Integer, nullable=False)
+    user_answers = db.Column(db.Text, nullable=True)
 
     quiz = db.relationship('Quiz', backref='results')

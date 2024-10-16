@@ -62,7 +62,7 @@ function redirectToResult() {
 
    for (let j = currentQuestion; j < quizData.length; j++) {
      userAnswers.push({
-       question: quizData[j].question_text,
+       question: quizData[j].question_text,           
        answer: null
      });
    }
@@ -71,6 +71,8 @@ function redirectToResult() {
     const queryParams = new URLSearchParams({ score, total, userAnswers: JSON.stringify(userAnswers) }); 
     window.location.href = `/quiz/${quizId}/result?${queryParams.toString()}`;
 }
+
+
 
 time_id = setInterval(countdown, 1000);
 
