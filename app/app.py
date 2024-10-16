@@ -1,4 +1,4 @@
-from flask import Blueprint, json, render_template, redirect, url_for, request
+from flask import Blueprint, Response, abort, json, jsonify, render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.models import  Question, Quiz, QuizResult, User
@@ -187,6 +187,78 @@ def add_question():
         return redirect(url_for('app.quizzes'))
     quizzes = Quiz.query.all()
     return render_template('add_question.html', quizzes=quizzes)
+
+
+@app.route('/quizzes', methods=['Get'])
+def get_quizzes():
+    """It returns all quizzes in JSON format."""
+    quizzes = Quiz.query.all()
+    return jsonify([{'id': quiz.id, 'title': quiz.title} for quiz in quizzes])
+
+
+@app.route('/quizzes/<int:quiz_id>/questions', methods=['GET'])
+def get_quiz(quiz_id):
+    """It returns the questions of a quiz in JSON format."""
+    quiz = Quiz.query.get(quiz_id)
+    if quiz is None:
+        abort(404)
+    questions = []
+    for question in quiz.questions:
+        questions.append({
+            'question_text': question.question_text,
+            'options': question.get_options(),
+            'correct_answer': question.answer,
+            'id': question.id
+        })
+    
+    quiz_data = {
+        'quiz_title': quiz.title,
+        'questions': questions
+    }   
+    return Response(json.dumps(quiz_data, sort_keys=False, indent=4, separators=(',', ': ')), mimetype='application/json')
+    
+
+@app.route('/questions', methods=['POST'])
+def create_question():
+    """It creates a new question in the database."""
+    data = request.get_json()
+    if not data  or not all(key in data for key in ['quiz_id', 'question_text', 'options', 'answer']):
+        return jsonify({'message': 'Invali request data'}), 400
+    try:
+        new_question = Question(**data)
+        new_question.options = ','.join(data['options'])
+        db.session.add(new_question)
+        db.session.commit()
+        return jsonify({'message': 'Question added successfully!'}), 201
+    except Exception as ex:
+        return jsonify({'message': 'Error adding question:' + str(ex)}), 500
+    
+
+
+@app.route('/questions/<int:question_id>', methods=['PUT'])
+def update_question(question_id):
+    """It updates a question in the database using the question_id."""
+    question = Question.query.get(question_id)
+    if not question:
+        abort(404)
+    data = request.get_json()
+    print(data)
+    question.question_text = data['question_text']
+    question.options = ','.join(data['options'])
+    question.answer = data['answer']
+    db.session.commit()
+    return jsonify({'message': 'Question updated successfully!'})
+
+
+@app.route('/questions/<int:question_id>', methods=['DELETE'])
+def delete_question(question_id):
+    """It deletes a question from the database using the question_id."""
+    q = Question.query.get(question_id)
+    if not q:
+        abort(404)
+    db.session.delete(q)
+    db.session.commit()
+    return jsonify({'message': 'Question deleted successfully!'})
 
 if __name__ == '__main__':
     from app import create_app
