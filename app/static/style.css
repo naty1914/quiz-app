@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    width: 450px;
+    width: 600px;
     padding: 20px;
     margin-top: 80px;
     /* background-color: #156478; */
@@ -73,12 +73,10 @@ h1 {
 
 
 .options {
-    margin-bottom: 20px;
-
-
+  
     text-align: left;
+    margin-left: 10px;
 }
-
 
 .option {
     display: block;
@@ -106,7 +104,6 @@ h1 {
 }
 #toggleAnswersBtn {
     display: inline-block;
-    padding: 10px 20px;
     background-color: #406cdb;
     color: #fff;
     border: none;
@@ -160,7 +157,7 @@ margin-bottom: 10px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #3498db; /* Circle background color */
+    background-color: #3498db;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -172,7 +169,7 @@ margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
     color: rgb(113, 46, 46);
-    z-index: 1; /* Ensure the number is above the background */
+    z-index: 1;
     position: absolute;
 }
 
@@ -183,4 +180,38 @@ margin-bottom: 10px;
     background-color: rgb(20, 6, 6);
     z-index: 0;
     position: absolute;
+}
+
+ 
+  .result-score {
+    font-size: 1.2rem;
+  }
+
+  .toggle-btn {
+    margin: 20px auto;
+    padding: 10px 20px;
+  }
+  
+  .button, .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0c565d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .button, .btn:hover {
+    background-color: #5723c8;
+  }
+  
+  .checkbox {
+    margin-right: 10px;
+  }
+
+.answers-list {
+    list-style: none;
 }

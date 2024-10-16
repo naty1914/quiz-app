@@ -8,26 +8,26 @@
 </head>
 <body>
   <div class="container result">
-    <h1>Your Quiz Result</h1>
-    <p>Your score: {{ score }} out of {{ total }}</p>
+    <h1 class="result-title">Your Quiz Result</h1>
+    <p class="result-score">Your score: {{ score }} out of {{ total }}</p>
 
-    <button id="toggleAnswersBtn" onclick="toggleAnswers()">Show Answers</button>
+    <button id="toggleAnswersBtn" onclick="toggleAnswers()" class="toggle-btn">Show Answers</button>
 
-    <div id="answers" style="display: none;">
+    <div id="answers" class="answers" style="display: none;">
     <h2>Your Answers:</h2>
-    <ul>
+    <ol class="answers-list">
       {% for item in user_answers %}
-      <li>
-        <strong>Question:</strong> {{ item.question }}<br><br>
+      <li class="answer-item">
+        <div class="question">Question {{ loop.index }}: {{ item.question }}</div>
+        <div class="options">
         {% for choice in item.options %}
-          <div>
-            {% if choice == item.user_answer %}
-              <span class="{{ 'correct' if choice == item.correct_answer else 'incorrect' }}">
+          <div   class="option-item">
+            <input type="checkbox" class="checkbox" 
+            {% if choice == item.user_answer %} checked {% endif %} 
+            disabled> 
+              <span class="{% if choice == item.user_answer %}{% if choice == item.correct_answer %}correct{% else %}incorrect{% endif %}{% endif %}">
                 {{ choice }}
               </span>
-            {% else %}
-              {{ choice }}
-            {% endif %}
           </div>
         {% endfor %}
         {% if item.user_answer is none %}
@@ -35,7 +35,7 @@
       {% endif %}
       </li>
       {% endfor %}
-    </ul>
+    </ol>
    
   </div>
     <a href="{{ url_for('app.quizzes') }}" class="button">Back to Quiz Categories</a>
