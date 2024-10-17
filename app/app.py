@@ -7,9 +7,9 @@ from app.models import  Question, Quiz, QuizResult, User
 app = Blueprint('app', __name__)
 
 @app.route('/')
-def index():
-    """It renders the index.html template."""
-    return render_template('index.html')
+def landingpage():
+    """It renders the landingpage.html template."""
+    return render_template('landingpage.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -74,7 +74,7 @@ def logout():
     """It logs out the user."""
     print("logging out")
     logout_user()
-    return redirect(url_for('app.index'))
+    return redirect(url_for('app.landingpage'))
 
 
 @app.route('/quiz_categories')
@@ -163,6 +163,7 @@ def result(quiz_id):
     return render_template('result.html', score=score, total=total, user_answers=structured_answers)
 
 @app.route('/add', methods=['GET', 'POST'])
+@login_required
 def add_question():
     """It adds a new question to the database using the
     selected quiz.( Tech or General Knowledge)"""

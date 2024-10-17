@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App - Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous">
+</head>
+<body class="body-index">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Quiz App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('app.login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('app.dashboard') }}">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid px-0">
+        <section id="home" class="cover">
+            <div class="cover-content">
+                <h1 class="display-4"><strong>Welcome to the Quiz App!</strong></h1>
+                <p class="lead">Test your knowledge with interactive quizzes.</p>
+                <div class="my-4">
+                    <a href="{{ url_for('app.quizzes') }}" class="btn btn-primary mx-2">Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="text-center my-5">
+            <h2 class="mt-5">How It Works</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <h5 class="card-title">Step 1: Choose a Quiz</h5>
+                            <p class="card-text">Select from a variety of quizzes across different topics to test your knowledge.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <h5 class="card-title">Step 2: Answer Questions</h5>
+                            <p class="card-text">Complete the quiz by answering multiple-choice questions within the time limit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <h5 class="card-title">Step 3: Submit & Get Results</h5>
+                            <p class="card-text">Submit your answers and immediately view your results to see your performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <h5 class="card-title">Step 4: View Detailed Feedback</h5>
+                            <p class="card-text">Review correct, incorrect, and unanswered questions to improve your knowledge.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features" class="text-center my-5">
+            <h2 class="mt-5">Key Features</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <img src="{{ url_for('static', filename='images/authentication.jpg') }}" class="card-img-top" alt="Feature 1">
+                            <h5 class="card-title card-no-bg">User Authentication</h5>
+                            <p class="card-text">Secure login and registration for user access to quiz results.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg" > 
+                        <img src="{{ url_for('static', filename='images/dynamic.jpg') }}" class="card-img-top" alt="Feature 2">
+                            <h5 class="card-title">Dynamic Quiz Selection</h5>
+                            <p class="card-text">Users can select quizzes like "Tech" or "General" and add questions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                        <img src="{{ url_for('static', filename='images/api.jpg') }}" class="card-img-top" alt="Feature 3">
+                            <h5 class="card-title">REST API for Quizzes</h5>
+                            <p class="card-text">REST API for managing quiz questions with full CRUD support.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body  card-no-bg">
+                        <img src="{{ url_for('static', filename='images/result.jpg') }}" class="card-img-top" alt="Feature 4">
+                            <h5 class="card-title">Results Display</h5>
+                            <p class="card-text">Results Display: Instant feedback with score and total questions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section id="coming-soon" class="text-center my-5">
+            <h2 class="mt-5">Coming Soon</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                        <img src="{{ url_for('static', filename='images/category.jpg') }}" class="card-img-top" alt="Feature 1">
+                            <h5 class="card-title">More Quiz Categories</h5>
+                            <p class="card-text">Additional quiz categories for users to choose from, expanding the variety of quizzes available.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body  card-no-bg">
+                        <img src="{{ url_for('static', filename='images/details.jpg') }}" class="card-img-top" alt="Feature 2">
+                            <h5 class="card-title">Detailed Results on Dashboard</h5>
+                            <p class="card-text"> Users can view detailed results for each quiz taken via a "Details" button.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body  card-no-bg">
+                        <img src="{{ url_for('static', filename='images/leaderboard.jpg') }}" class="card-img-top" alt="Feature 3">
+                            <h5 class="card-title">User Leaderboards:</h5>
+                            <p class="card-text">A leaderboard feature to highlight top performers and encourage competition among users.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="text-center my-5">
+            <h2 class="mt-5">About Quiz App</h2>
+            <p>Quiz App is an engaging and fun way to test your knowledge across a variety of topics. Enjoy a dynamic learning experience that keeps you entertained while expanding your knowledge.</p>
+            <div class="my-4">
+                <a href="https://github.com/naty1914/quiz-app" class="btn btn-outline-secondary">View Project on GitHub</a>
+            </div>
+        </section>
+
+        <section id="developer" class="text-center my-5">
+            <h2 class="mt-5">Developer</h2>
+            <p>I am Natnael Seifu, a Python developer with expertise in Bootstrap and Flask.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/natnael-seifu/" class="btn btn-icon btn-outline-primary mx-2"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/naty1914" class="btn btn-icon btn-outline-dark mx-2"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/NatnaelSeifu19" class="btn btn-icon btn-outline-info mx-2"><i class="fab fa-twitter"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-3 bg-dark text-white text-center">
+        <div class="container-footer">
+            <p><a href="#home" class="text-white">Home</a> |   © 2024 Quiz App</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
