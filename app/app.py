@@ -5,7 +5,6 @@ from app.models import  Question, Quiz, QuizResult, User
 
 
 app = Blueprint('app', __name__)
-
 @app.route('/')
 def landingpage():
     """It renders the landingpage.html template."""
