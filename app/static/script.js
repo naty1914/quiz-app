@@ -106,3 +106,11 @@ function  toggleAnswers() {
     toggleButton.textContent = "Show Answers";
   }
 }
+
+
+function togglePassword() {
+  var passwordField = document.getElementById("password");
+  var checkbox = document.getElementById("show-password");
+  // Toggle the password visibility
+  passwordField.type = checkbox.checked ? "text" : "password";
+}

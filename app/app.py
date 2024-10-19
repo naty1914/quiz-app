@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, abort, json, jsonify, render_template, redirect, url_for, request
+from flask import Blueprint, Response, abort, flash, json, jsonify, render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
 from app.models import  Question, Quiz, QuizResult, User
@@ -18,6 +18,8 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         print(f"Username: {username}, Email: {email}, Password: {password}")
+        security_question = request.form.get('security_question')
+        security_answer = request.form.get('security_answer')
         
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
@@ -29,6 +31,8 @@ def register():
         
         new_user = User(username=username, email=email)
         new_user.set_password(password)
+        new_user.security_question = security_question
+        new_user.set_security_answer(security_answer)
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('app.login'))
@@ -52,6 +56,46 @@ def login():
     
     return render_template('login.html')  
 
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    """It renders the forgot_password.html template."""
+    if request.method == 'POST':
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return render_template('security_question.html', question=user.security_question, user_id=user.id)
+        else:
+            return render_template('forgot_password.html', error='No account found with that email address.')
+
+    return render_template('forgot_password.html')
+
+@app.route('/verify_security_answer', methods=['POST'])
+def verify_security_answer():
+    """It verifies the security answer"""
+    user_id = request.form['user_id']
+    answer = request.form['answer']
+    user = User.query.get(user_id)
+    if user and user.check_security_answer(answer):
+        return render_template('reset_password.html', user_id=user.id)
+    else:
+        return render_template('security_question.html', question=user.security_question, user_id=user.id,
+                               error='Incorrect answer. Please try again.')
+
+@app.route('/reset_password', methods=['POST'])
+def reset_password():
+    """It resets the user's password."""
+    user_id = request.form['user_id']
+    new_password = request.form['new_password']
+    user = User.query.get(user_id)
+    
+    if user:
+        user.set_password(new_password)
+        db.session.commit()
+        flash('Your password has been updated!', 'success')
+        return redirect(url_for('app.login'))
+    
+    return render_template('forgot_password.html', error='User not found.')
 
 @app.route('/dashboard')
 @login_required
