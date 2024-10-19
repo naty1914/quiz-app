@@ -18,12 +18,13 @@ learning experience
     <strong>Natnael Seifu</strong><br>
     Contact: <a href="mailto:natiseifu02@gmail.com.com">natiseiuf02@gmail.com</a>
 </p>
+
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [Usage](#usage)
+
 
 
 ## Overview
