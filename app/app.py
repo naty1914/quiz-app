@@ -112,6 +112,19 @@ def dashboard():
     
     return render_template('dashboard.html', user=user, quiz_results=quiz_results)
 
+@app.route('/update_username', methods=['POST'])
+@login_required
+def update_username():
+    "It updates the username for the logged-in user."
+    new_username = request.form.get('username')
+    if new_username:
+        if User.query.filter_by(username=new_username).first():
+            flash('Username already exists. Please try again.', 'danger')
+        else:
+            current_user.username = new_username
+            db.session.commit()
+            flash('Your username has been updated!', 'success')
+    return redirect(url_for('app.dashboard'))
 @app.route('/logout')
 def logout():
     """It logs out the user."""

@@ -17,8 +17,10 @@ def create_app():
     app.config['SECRET_KEY'] =os.environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'True') == 'True'
-   
+ 
+    os.environ['FLASK_DEBUG'] = '1'
+    app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False') in ['true', '1', 'yes']
+    
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
