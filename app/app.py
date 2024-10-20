@@ -125,6 +125,23 @@ def update_username():
             db.session.commit()
             flash('Your username has been updated!', 'success')
     return redirect(url_for('app.dashboard'))
+
+@app.route('/select_avatar', methods=['GET', 'POST'])
+@login_required
+def select_avatar():
+    """It renders the select_avatar.html template."""
+    if request.method == 'POST':
+        avatar = request.form.get('avatar')
+        user = User.query.get(current_user.id)
+        if user:
+            user.avatar = avatar
+            db.session.commit()
+            flash('avatar updated successfully!', 'success')
+            return redirect(url_for('app.dashboard'))
+        else:
+            flash('User not found!', 'danger')
+    return render_template('select_avatar.html')
+
 @app.route('/logout')
 def logout():
     """It logs out the user."""

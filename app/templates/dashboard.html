@@ -31,6 +31,17 @@
                 </button>
             </h1>
             <p><strong>Your email:</strong> {{ user.email }}</p>
+            <!-- Display user's avatar on the dashboard -->
+            <div class="avatar-container">
+                <img src="{{ url_for('static', filename='images/' + current_user.avatar) }}" alt="User Avatar" class="user-avatar">
+                <a href="{{ url_for('app.select_avatar') }}" class="btn btn-outline-secondary select-avatar-btn">
+                    ✏️
+                </a>
+            </div>
+            
+            
+           
+
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}

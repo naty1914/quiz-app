@@ -12,6 +12,8 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128), nullable=False)
     security_question = db.Column(db.String(200), nullable=False)
     security_answer_hash = db.Column(db.String(128), nullable=False)
+    avatar = Column(String, default='avatar1.png')
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -23,6 +25,7 @@ class User(db.Model, UserMixin):
 
     def check_security_answer(self, answer):
         return check_password_hash(self.security_answer_hash, answer)
+
 class Quiz(db.Model):
     """It stores the details of a quiz. """
     __tablename__ = 'quiz'

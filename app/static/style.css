@@ -627,3 +627,60 @@ button, .btn {
 .answers {
     transition: max-height 0.5s ease-out;
 }
+.user-avatar {
+    width: 100px;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 10px; 
+    border: 2px solid #163556;
+}
+
+.avatar-container { 
+    display: flex;
+    align-items: center;
+    margin: 20px auto;
+}
+.select-avatar-btn {
+    border: 1px solid #163556;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-label {
+    display: block;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.3s;
+}
+
+
+.avatar-label:hover {
+    border-color: #007bff;
+}
+
+.avatar-img {
+    width: 100%;                    
+    height: auto;  
+    cursor: pointer;                 
+    border-radius: 10px;            
+    transition: transform 0.3s;
+}
+
+.no-full-height {
+    height: auto;
+}
+
+.avatar-selected {
+    border: 5px solid #007bff;
+    transform: scale(1.1);
+}
+.avatar-img:hover {
+    transform: scale(1.05);
+}
+.avatar-selected {
+    border: 5px solid #007bff;
+    transform: scale(1.1);
+}

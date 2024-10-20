@@ -76,6 +76,7 @@ function redirectToResult() {
 
 time_id = setInterval(countdown, 1000);
 
+
 function countdown() {
     if (timeLeft === 0) {
         clearInterval(time_id);
@@ -111,6 +112,19 @@ function  toggleAnswers() {
 function togglePassword() {
   var passwordField = document.getElementById("password");
   var checkbox = document.getElementById("show-password");
-  // Toggle the password visibility
   passwordField.type = checkbox.checked ? "text" : "password";
 }
+
+ const avatarImages = document.querySelectorAll('.avatar-img');
+ const avatarRadios = document.querySelectorAll('input[name="avatar"]');
+
+ function removeSelectedClass() {
+    avatarImages.forEach(img => img.classList.remove('avatar-selected'));
+ }
+
+avatarRadios.forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+        removeSelectedClass();
+         avatarImages[index].classList.add('avatar-selected');
+    }); 
+ });
