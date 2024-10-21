@@ -59,3 +59,4 @@ class QuizResult(db.Model):
     user_answers = db.Column(db.Text, nullable=True)
 
     quiz = db.relationship('Quiz', backref='results')
+    user = db.relationship('User', backref=db.backref('results', lazy=True))

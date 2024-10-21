@@ -76,7 +76,6 @@ function redirectToResult() {
 
 time_id = setInterval(countdown, 1000);
 
-
 function countdown() {
     if (timeLeft === 0) {
         clearInterval(time_id);

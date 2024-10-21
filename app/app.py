@@ -112,6 +112,17 @@ def dashboard():
     
     return render_template('dashboard.html', user=user, quiz_results=quiz_results)
 
+@app.route('/leaderboard')
+@login_required
+def leaderboard():
+    """ It renders the leaderboard.html template displaying the top performers."""
+    selected_quiz_id = request.args.get('quiz_id', default=1, type=int)
+    leaderboard_data = db.session.query(
+        User.username, db.func.sum(QuizResult.score).label('total_score')
+    ).join(QuizResult).filter(QuizResult.quiz_id == selected_quiz_id).group_by(
+        User.username).order_by(db.desc('total_score')).limit(10).all()
+    return render_template('leaderboard.html', leaderboard=leaderboard_data, selected_quiz_id=selected_quiz_id)
+
 @app.route('/update_username', methods=['POST'])
 @login_required
 def update_username():
