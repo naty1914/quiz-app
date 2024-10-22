@@ -24,6 +24,10 @@ function displayQuestion() {
         radio.name = 'quiz';
         radio.value = option;
 
+        if (userAnswers[currentQuestion] && userAnswers[currentQuestion].answer === option) {
+            radio.checked = true;
+        }
+
         label.appendChild(radio);
         label.appendChild(document.createTextNode(option));
         optionsElement.appendChild(label);
@@ -33,46 +37,59 @@ function displayQuestion() {
     quizContainer.innerHTML = '';
     quizContainer.appendChild(questionElement);
     quizContainer.appendChild(optionsElement);
+
+    document.getElementById('prev').disabled = currentQuestion === 0;
+    document.getElementById('next').style.display = currentQuestion === quizData.length - 1 ? 'none' : 'inline-block';
+    document.getElementById('submit').style.display =  currentQuestion === quizData.length - 1 ? 'inline-block' : 'none';
 }
 
 function checkAnswer() {
     const selectedOption = document.querySelector('input[name="quiz"]:checked');
     if (selectedOption) {
-        const userAnswer = selectedOption.value;
-        const correctAnswer = quizData[currentQuestion].answer;
-
-        userAnswers.push({
+        const userAnswer = selectedOption.value.trim();
+        userAnswers[currentQuestion] = {
             question: quizData[currentQuestion].question_text,
             answer: userAnswer
-        });
+        };
 
-        if (userAnswer === correctAnswer) {
-          score++;
-        }
-        currentQuestion++;
-        if (currentQuestion < quizData.length) {
-            displayQuestion();
-        } else {
-            redirectToResult();
-        }
     }
+}
+
+function prevQuestion() {
+  checkAnswer();
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    displayQuestion();
+  } 
+}
+
+function nextQuestion() {
+  checkAnswer();
+  if (currentQuestion < quizData.length - 1) {
+    currentQuestion++;
+    displayQuestion();
+  }
 }
 
 function redirectToResult() {
 
-   for (let j = currentQuestion; j < quizData.length; j++) {
-     userAnswers.push({
-       question: quizData[j].question_text,           
-       answer: null
-     });
-   }
+   score = userAnswers.reduce((acc, curr, index) => {
+       return acc + (curr.answer === quizData[index].answer ? 1 : 0);
+   }, 0);
     const total = quizData.length;
     const quizId = quizData[0].quiz_id;
     const queryParams = new URLSearchParams({ score, total, userAnswers: JSON.stringify(userAnswers) }); 
     window.location.href = `/quiz/${quizId}/result?${queryParams.toString()}`;
 }
 
+document.getElementById('next').addEventListener('click', nextQuestion);
+document.getElementById('prev').addEventListener('click', prevQuestion);
+document.getElementById('submit').addEventListener('click', () => {
+    checkAnswer();
+    redirectToResult();
+});
 
+displayQuestion();
 
 time_id = setInterval(countdown, 1000);
 

@@ -252,9 +252,9 @@ def add_question():
     """It adds a new question to the database using the
     selected quiz.( Tech or General Knowledge)"""
     if request.method == 'POST':
-        question_text = request.form['question_text']
-        options = request.form['options']
-        answer = request.form['answer']
+        question_text = request.form['question_text'].strip()
+        options = ','.join([option.strip() for option in request.form['options'].split(',')])
+        answer = request.form['answer'].strip()
         selected_quiz = request.form.get('quiz_title')
         
         if selected_quiz == 'tech':
