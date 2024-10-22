@@ -685,4 +685,37 @@ button, .btn {
     transform: scale(1.1);
 }
 
+#timer-container {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto 20px;
+ 
+}
 
+#timer {
+    transform: rotate(-90deg);
+}
+.outer-circle, .inner-circle {
+    fill: none;
+    stroke-width: 10;
+}
+
+.outer-circle {
+    stroke: rgb(255, 4, 83);
+}
+
+.inner-circle {
+    stroke: #edf0f4;
+    stroke-dasharray:  282.74;
+    stroke-dashoffset: 0;
+}
+
+#question-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #01050a;
+}

@@ -7,7 +7,7 @@ let userAnswers = [];
 function displayQuestion() {
     const currentQuestionData = quizData[currentQuestion];
     const questionCountElement = document.getElementById('questionCount');
-    questionCountElement.textContent = `Question ${currentQuestion + 1} / ${quizData.length}`;
+    // questionCountElement.textContent = ` ${currentQuestion + 1} / ${quizData.length}`;
     const questionElement = document.createElement('div');
     questionElement.className = 'question';
     questionElement.textContent = `Question ${currentQuestion + 1}: ${currentQuestionData.question_text}`;
@@ -46,13 +46,20 @@ function displayQuestion() {
 function checkAnswer() {
     const selectedOption = document.querySelector('input[name="quiz"]:checked');
     if (selectedOption) {
-        const userAnswer = selectedOption.value.trim();
+        const userAnswer = selectedOption.value;
         userAnswers[currentQuestion] = {
             question: quizData[currentQuestion].question_text,
             answer: userAnswer
         };
 
     }
+
+    else {
+      userAnswers[currentQuestion] = {
+          question: quizData[currentQuestion].question_text,
+          answer: null
+      };
+  }
 }
 
 function prevQuestion() {
@@ -65,7 +72,7 @@ function prevQuestion() {
 
 function nextQuestion() {
   checkAnswer();
-  if (currentQuestion < quizData.length - 1) {
+  if (currentQuestion < quizData.length - 1 && userAnswers[currentQuestion].answer !== null) {
     currentQuestion++;
     displayQuestion();
   }
@@ -78,6 +85,14 @@ function redirectToResult() {
    }, 0);
     const total = quizData.length;
     const quizId = quizData[0].quiz_id;
+    for (let i = 0; i < quizData.length; i++) {
+    if (userAnswers[i] === undefined || userAnswers[i].answer === null) {
+      userAnswers[i] = {
+        question: quizData[i].question_text,
+        answer: null
+      };
+    }
+  }
     const queryParams = new URLSearchParams({ score, total, userAnswers: JSON.stringify(userAnswers) }); 
     window.location.href = `/quiz/${quizId}/result?${queryParams.toString()}`;
 }
@@ -89,23 +104,33 @@ document.getElementById('submit').addEventListener('click', () => {
     redirectToResult();
 });
 
+document.querySelectorAll('input[name="quiz"]').forEach(input => {
+    input.addEventListener('change', () => {
+        document.getElementById('next').disabled = false;
+    });
+});
 displayQuestion();
 
-time_id = setInterval(countdown, 1000);
 
-function countdown() {
+time_id = setInterval(updateTimer, 1000);
+function updateTimer() {
+  const totalTime  = 60;
+  const circumference = 2 * Math.PI *45;
+  const offset = circumference * (timeLeft / totalTime);
+  document.querySelector('.inner-circle').style.strokeDashoffset = offset;
+  document.getElementById('question-count').innerHTML = `${currentQuestion + 1} / ${quizData.length}`;
+
     if (timeLeft === 0) {
         clearInterval(time_id);
-        document.getElementById('timer').textContent = 'Time is up';
         setTimeout(function() {
             redirectToResult();
         }, 2000);
     } else {
-        document.getElementById('timer').textContent = `${timeLeft} Seconds remaining`;
         timeLeft--;
     }
 }
-countdown();
+
+updateTimer();
 
 document.getElementById('submit').addEventListener('click', checkAnswer);
 displayQuestion();
