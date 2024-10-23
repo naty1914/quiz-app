@@ -10,17 +10,22 @@ from app.models import User
 login_manager = LoginManager()
 migrate = Migrate()  
 
-def create_app():
+def create_app(config_class=None):
     """It creates and configures the Flask app."""
     app = Flask(__name__)
     
     app.config['SECRET_KEY'] =os.environ.get('SECRET_KEY')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
     os.environ['FLASK_DEBUG'] = '1'
     app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False') in ['true', '1', 'yes']
     
+    if config_class:
+        app.config.from_object(config_class)
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)

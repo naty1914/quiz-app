@@ -327,7 +327,7 @@ def get_quizzes():
 @app.route('/quizzes/<int:quiz_id>/questions', methods=['GET'], strict_slashes=False)
 def get_quiz(quiz_id):
     """It returns the questions of a quiz in JSON format."""
-    quiz = Quiz.query.get(quiz_id)
+    quiz = db.session.get(Quiz, quiz_id)
     if quiz is None:
         abort(404)
     questions = []
