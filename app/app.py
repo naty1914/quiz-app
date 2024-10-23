@@ -241,10 +241,39 @@ def result(quiz_id):
     ]
     
     if current_user.is_authenticated:
-        quiz_result = QuizResult(user_id=current_user.id, quiz_id=quiz_id, score=score, total_questions=total)
+        quiz_result = QuizResult(user_id=current_user.id, quiz_id=quiz_id, score=score, total_questions=total, user_answers=user_answers)
         db.session.add(quiz_result)
         db.session.commit()
     return render_template('result.html', score=score, total=total, user_answers=structured_answers)
+
+@app.route('/result/<int:result_id>')
+def result_details(result_id):
+    """It displays the result of a quiz"""
+    result = QuizResult.query.get(result_id)
+    if not result or result.user_id != current_user.id:
+        flash('Result not found or access denied.', 'danger')
+        return redirect(url_for('app.dashboard'))
+    
+    user_answers_list = json.loads(result.user_answers) if result.user_answers else []
+    questions = Question.query.filter_by(quiz_id=result.quiz_id).all()
+    quiz_questions = []
+    for question in questions:
+        quiz_questions.append({
+            'question_text': question.question_text,
+            'options': question.options.split(','),
+            'correct_answer': question.answer,
+        })
+    
+    structured_answers = [
+        {
+            'question': quiz_questions[i]['question_text'],
+            'user_answer': user_answers_list[i]['answer'],
+            'correct_answer': quiz_questions[i]['correct_answer'],
+            'options': quiz_questions[i]['options']
+        } for i in range(len(user_answers_list))
+    ]
+    return render_template('result.html', score=result.score, total=result.total_questions, user_answers=structured_answers)
+
 
 @app.route('/add', methods=['GET', 'POST'])
 @login_required

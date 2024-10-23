@@ -32,7 +32,6 @@
                 </button>
             </h1>
             <p><strong>Your email:</strong> {{ user.email }}</p>
-            <!-- Display user's avatar on the dashboard -->
             <div class="avatar-container">
                 <img src="{{ url_for('static', filename='images/' + current_user.avatar) }}" alt="User Avatar" class="user-avatar">
                 <a href="{{ url_for('app.select_avatar') }}" class="btn btn-outline-secondary select-avatar-btn">
@@ -40,9 +39,6 @@
                 </a>
             </div>
             
-            
-           
-
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -52,7 +48,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
-        {% endwith %}
+            {% endwith %}
              <div  class="modal fade" id="editUsernameModal" tabindex="-1" aria-labelledby="editUsernameModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -89,6 +85,7 @@
                             <th>Quiz Title</th>
                             <th>Score</th>
                             <th>Total Questions</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,6 +94,7 @@
                             <td>{{ result.quiz.title }}</td>
                             <td>{{ result.score }}</td>
                             <td>{{ result.total_questions }}</td>
+                            <td> <a href="{{ url_for('app.result_details', result_id=result.id) }}" class="btn btn-outline-primary btn-sm">Details</td>
                         </tr>
                         {% endfor %}
                     </tbody>

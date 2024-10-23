@@ -45,6 +45,7 @@ function displayQuestion() {
 
 function checkAnswer() {
     const selectedOption = document.querySelector('input[name="quiz"]:checked');
+    
     if (selectedOption) {
         const userAnswer = selectedOption.value;
         userAnswers[currentQuestion] = {
@@ -100,6 +101,10 @@ function redirectToResult() {
 document.getElementById('next').addEventListener('click', nextQuestion);
 document.getElementById('prev').addEventListener('click', prevQuestion);
 document.getElementById('submit').addEventListener('click', () => {
+  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  if (!selectedOption) {
+      return;
+  }
     checkAnswer();
     redirectToResult();
 });
