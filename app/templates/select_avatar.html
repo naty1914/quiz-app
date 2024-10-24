@@ -16,7 +16,7 @@
 
         <form method="POST" action="{{ url_for('app.select_avatar') }}">
             <div class="row justify-content-center avatars">
-                <div class="col-3 text-center">
+                <div class="col-3 text-center ">
                     <label class="avatar-label">
                         <img src="{{ url_for('static', filename='images/avatar1.png') }}" alt="Avatar 1" class="avatar-img">
                         <input type="radio" name="avatar" value="avatar1.png" class="d-none">
@@ -35,7 +35,7 @@
                     </label>
                 </div>
                 <div class="col-3 text-center">
-                    <label class="avatar-label">
+                    <label class="avatar-label ">
                         <img src="{{ url_for('static', filename='images/avatar4.png') }}" alt="Avatar 4" class="avatar-img">
                         <input type="radio" name="avatar" value="avatar4.png" class="d-none">
                     </label>

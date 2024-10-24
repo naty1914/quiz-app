@@ -32,6 +32,7 @@
             <select name="quiz_id" class="form-select mb-3" onchange="this.form.submit()">
                 <option value="1" {% if selected_quiz_id == 1 %}selected{% endif %}>Tech Questions</option>
                 <option value="2" {% if selected_quiz_id == 2 %}selected{% endif %}>General Questions</option>
+                <option value="3" {% if selected_quiz_id == 3 %}selected{% endif %}>Any category Questions</option>
             </select>
         </form>
 

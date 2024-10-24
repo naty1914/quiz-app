@@ -79,7 +79,7 @@
         <section id="features" class="text-center my-5">
             <h2 class="mt-5">Key Features</h2>
             <div class="row">
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body card-no-bg">
                             <img src="{{ url_for('static', filename='images/authentication.jpg') }}" class="card-img-top" alt="Feature 1">
@@ -88,33 +88,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                        <img src="{{ url_for('static', filename='images/api.jpg') }}" class="card-img-top" alt="Feature 2">
+                            <h5 class="card-title">REST API (CRUD)</h5>
+                            <p class="card-text">REST API for managing quiz questions with full CRUD support.</p>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body card-no-bg">
+                            <img src="{{ url_for('static', filename='images/unittest.jpg') }}" class="card-img-top" alt="Feature 3">
+                            <h5 class="card-title">Unit Tests</h5>
+                            <p class="card-text">Unit tests ensure functionality, reliability, and performance.</p>
+                        </div>
+                    </div>
+                </div>
+                
+               
+            </div>
+            <div class="row">
+               
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body  card-no-bg">
+                        <img src="{{ url_for('static', filename='images/result.jpg') }}" class="card-img-top" alt="Feature 4">
+                            <h5 class="card-title">Results Display & Detailed Results on Dashboard</h5>
+                            <p class="card-text"> Instant feedback with score and total questions. Users can view detailed results for each quiz taken via a "Details" button</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body card-no-bg" > 
-                        <img src="{{ url_for('static', filename='images/dynamic.jpg') }}" class="card-img-top" alt="Feature 2">
+                        <img src="{{ url_for('static', filename='images/dynamic.jpg') }}" class="card-img-top" alt="Feature 5">
                             <h5 class="card-title">Dynamic Quiz Selection</h5>
                             <p class="card-text">Users can select quizzes like "Tech" or "General" and add questions.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body card-no-bg">
-                        <img src="{{ url_for('static', filename='images/api.jpg') }}" class="card-img-top" alt="Feature 3">
-                            <h5 class="card-title">REST API for Quizzes</h5>
-                            <p class="card-text">REST API for managing quiz questions with full CRUD support.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
+               
+                <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body  card-no-bg">
-                        <img src="{{ url_for('static', filename='images/result.jpg') }}" class="card-img-top" alt="Feature 4">
-                            <h5 class="card-title">Results Display</h5>
-                            <p class="card-text">Results Display: Instant feedback with score and total questions.</p>
+                        <img src="{{ url_for('static', filename='images/leaderboard.jpg') }}" class="card-img-top" alt="Feature 6">
+                            <h5 class="card-title">Leaderboards</h5>
+                            <p class="card-text">A leaderboard feature to highlight top performers and encourage competition among users.</p>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
         </section>
         
@@ -131,24 +157,25 @@
                         </div>
                     </div>
                 </div>
+              
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body  card-no-bg">
-                        <img src="{{ url_for('static', filename='images/details.jpg') }}" class="card-img-top" alt="Feature 2">
-                            <h5 class="card-title">Detailed Results on Dashboard</h5>
-                            <p class="card-text"> Users can view detailed results for each quiz taken via a "Details" button.</p>
+                        <img src="{{ url_for('static', filename='images/quiz.jpg') }}" class="card-img-top" alt="Feature 2">
+                            <h5 class="card-title">Quiz Sharing</h5>
+                            <p class="card-text"> Allowing users to share their quiz results on social media platforms.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body  card-no-bg">
-                        <img src="{{ url_for('static', filename='images/leaderboard.jpg') }}" class="card-img-top" alt="Feature 3">
-                            <h5 class="card-title">User Leaderboards:</h5>
-                            <p class="card-text">A leaderboard feature to highlight top performers and encourage competition among users.</p>
+                        <img src="{{ url_for('static', filename='images/theme.jpg') }}" class="card-img-top" alt="Feature 3">
+                            <h5 class="card-title">Customizable Quiz Themes</h5>
+                            <p class="card-text">Users can choose different themes and styles for their quiz interface.</p>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
         </section>
 

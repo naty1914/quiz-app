@@ -15,7 +15,6 @@ def create_app(config_class=None):
     app = Flask(__name__)
     
     app.config['SECRET_KEY'] =os.environ.get('SECRET_KEY')
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
     os.environ['FLASK_DEBUG'] = '1'
@@ -24,7 +23,7 @@ def create_app(config_class=None):
     if config_class:
         app.config.from_object(config_class)
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+        app.config['SQLALCHEMY_DATABASE_URI'] =os.environ.get('DATABASE_URL')
 
     db.init_app(app)
     migrate.init_app(app, db)
