@@ -5,24 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous">
     <title>Registration Page</title>
 </head>
-<body class="body-quiz">
-    <body class="body-quiz">
-          <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Quiz App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="{{ url_for('app.landingpage') }}" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="{{ url_for('app.dashboard') }}" class="nav-link">Dashboard</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<body class="body-quiz body-register">
+
     <div class="container">
         {% if message %}
         <div class="alert alert-{{ message_class }}">
@@ -34,20 +21,22 @@
     {{ error }}
   </div>
 {% endif %}
-        <h2> Sign up</h2>
+        <h1 class="bg"> Quiz App</h1>
+        <p class="log">Create a new account</p>
         <form action="/register" method="POST">
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-                <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <span class="input-group-text" onclick="togglePassword()">
+                      <i class="fas fa-eye" id="password-icon"></i>
+                    </span>
+                </div>
             </div>
              <div class="mb-3">
                 <label for="security_question" class="form-label">Security Question</label>
@@ -62,9 +51,11 @@
                 <label for="security_answer" class="form-label">Your Answer</label>
                 <input type="text" class="form-control" id="security_answer" name="security_answer" placeholder="Your Answer" required>
              </div>
-            <button type="submit" class="btn btn-outline-primary">Register</button>
-            <p>Already have an account?</p>
-    <a href="{{ url_for('app.login') }}" class="btn btn-secondary">Login</a>
+            <button type="submit" class="btn btn-outline-primary register">Register</button>
+            <div class="footer-links">
+                <a href="{{ url_for('app.login') }}" class="account">Already have an account?</a>
+            </div>
+    
         </form>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

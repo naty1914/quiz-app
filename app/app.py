@@ -288,8 +288,10 @@ def add_question():
         
         if selected_quiz == 'tech':
             quiz_title = 'Tech related Quiz'
+        elif selected_quiz == 'general':
+            quiz_title = 'General Knowledge Quiz'
         else:
-            quiz_title = 'General Knowledge'
+            quiz_title = 'Any Category Quiz'
         
         quiz = Quiz.query.filter_by(title=quiz_title).first()
         if quiz is None:

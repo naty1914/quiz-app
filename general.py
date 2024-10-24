@@ -9,7 +9,7 @@ from app.models import Question, Quiz
 app = create_app()
 with app.app_context():
     db.create_all()
-    quiz_title = 'General Knowledge'
+    quiz_title = 'General Knowledge Quiz'
     existing_quiz = Quiz.query.filter_by(title=quiz_title).first()
     
     if existing_quiz is None:

@@ -8,6 +8,8 @@ from app.models import Question, Quiz
 
 app = create_app()
 with app.app_context():
+    Question.query.delete()
+    Quiz.query.delete()
     db.create_all()
     quiz_title = 'Tech related Quiz'
     existing_quiz = Quiz.query.filter_by(title=quiz_title).first()

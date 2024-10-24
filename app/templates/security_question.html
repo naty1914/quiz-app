@@ -25,15 +25,15 @@
     </nav>
 
     <div class="container">
-    <h1>Security Question</h1>
-    <p>{{ question }}</p>
+    <h1 class="bg">Security Question</h1>
+    <p class="log">{{ question }}</p>
     <form method="POST" action="/verify_security_answer">
         <input type="hidden" name="user_id" value="{{ user_id }}">
         <input type="text" name="answer" placeholder="Your answer" required>
-        <button type="submit" btn btn-outline-primary>Submit</button>
+        <button type="submit" class="btn btn-outline-primary forgot_password">Submit</button>
     </form>
     {% if error %}
-        <p style="color: rgb(0, 255, 72);">{{ error }}</p>
+        <p style="color: rgb(255, 0, 81);">{{ error }}</p>
     {% endif %}
     </div>
 </body>

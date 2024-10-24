@@ -265,6 +265,7 @@ h1.mb-4 {
     margin-top: 50px;
 }
 
+
 .cover {
    background-image: url("images/landingpage.jpg");
     background-size: cover;
@@ -718,4 +719,67 @@ button, .btn {
     transform: translate(-50%, -50%);
     font-size: 18px;
     color: #01050a;
+}
+
+
+.forgot_password {
+    text-align: left;
+}
+
+.input-group-text {
+  padding: 0;
+  height: calc(1.4em + 0.90rem + 10px);
+  margin-bottom: 0;
+}
+.input-group-text, i {
+width: 30px;
+
+}
+
+.bg {
+    color: #205b9a;
+    text-align: center;
+    font-size: 3rem;
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.log {
+    padding: 10px;
+    font-size: 20px;
+}
+.login-container {
+    max-width: 500px;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.login, .register {
+    width: 100%;
+}
+.forgot_password, .account {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+}
+.footer-links {
+    margin-top: 20px;
+    text-align: center;
+}
+.footer-links a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+p.text-center {
+    padding: 10px 0;
+}
+
+.body-register {
+    margin-top: 0;
+}
+
+
+.quiz-buttons {
+    margin-left: 80px;
 }
