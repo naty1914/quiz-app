@@ -13,7 +13,7 @@ learning experience
     <a href="https://www.linkedin.com/in/natnael-seifu/">LinkedIn Profile</a>
 </p>
 
-## Developer#
+## Developer
 <p>
     <strong>Natnael Seifu</strong><br>
     Contact: <a href="mailto:natiseifu02@gmail.com.com">natiseiuf02@gmail.com</a>
@@ -24,6 +24,8 @@ learning experience
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
 
 
 
@@ -32,16 +34,20 @@ learning experience
 
 ## Features
 - User authentication (registration and login)
+- REST API (CRUD) for quizzes
+- Unit tests ensure functionality, reliability, and performance
 - Dynamic quiz selection based on categories
 - Instant feedback on performance
 - Scoring system and result display
-- REST API for quizzes
+- Detailed dashboard results
+- User leaderboards
 - Responsive design for mobile and desktop
+
 
 ## Technologies Used
 - **Backend**: Python, Flask
 - **Frontend**: HTML, CSS, Bootstrap
-- **Database**: SQLite or PostgreSQL
+- **Database**: SQLite
 - **Version Control**: Git
 
 ## Installation
@@ -75,3 +81,33 @@ To set up the project locally, follow these steps:
    ```bash
    flask run
    ```
+
+## Usage
+- **Signup and Login**: Users can register for an account or log in to access the quizzes.
+- **Quiz Categories**: Select a quiz category to test your knowledge.
+- **Instant Feedback**: Receive immediate feedback on your answers.
+- **Dashboard**: Track your performance and view detailed results.
+
+
+## Documentation
+- [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
+
+## Contribution
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+1. **Fork the repository**.
+2. **Create a new branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. **Make your changes and commit them** :
+   ```bash
+   git commit -m "Add your message here"
+
+
+4. **Push your changes to the remote repository**:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+
+5. **Create a pull request with a description of your changes** .
