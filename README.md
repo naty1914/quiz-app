@@ -57,27 +57,32 @@ To set up the project locally, follow these steps:
    ```bash
    git clone https://github.com/naty1914/quiz-app.git
    cd quiz-app
- 2. Create a virtual environment:
-
+   ```
+2. ** Create a virtual environment:**
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
-
 3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-
-4. **Set up environment variables: Create a .env file in the root directory and add the following**
+4. **Set up environment variables: Create a .env file in the  app directory and add the following:**
    ```bash
-   FLASK_APP=app.py
-   FLASK_ENV=development
    DATABASE_URL=sqlite:///your_database.db
    SECRET_KEY=your_secret_key
    ```
-
-5. **Run the application:**
+5. **Ensure the virtual environment is activated (if not already activated):**
+   ```bash
+   source venv/bin/activate
+   ```
+6. ** Initialize  the database:**
+   ```bash
+   flask db init
+   flask db migrate
+   flask db upgrade
+   ```
+7. **Run the application:**
    ```bash
    flask run
    ```
@@ -111,3 +116,7 @@ Contributions are welcome! If you'd like to contribute to this project, please f
    ```
 
 5. **Create a pull request with a description of your changes** .
+
+
+# Website
+Check out the live application:  [here](https://quiz-app-3jwf.onrender.com/)
